@@ -10,17 +10,16 @@ const ChatFeed = (props) => {
 
     const renderReadReceipts = (message, isMymessage) => {
         chat.people.map((person, index) => person.last_read === message.id && 
-            <div
+            (<div
                 key={`read_${index}`}
                 className="read-receipt"
                 style={{
                     float: isMymessage ? 'right' : 'left',
-                    backgroundImage: `url(${person.person.avatar})`
+                    backgroundImage: person.person.avatar && `url(${person.person.avatar})`,
                 }}
             >
-
             </div>
-        )
+            ));
     }
 
     const renderMessage = () => {
@@ -48,10 +47,9 @@ const ChatFeed = (props) => {
         })
     }
 
-    if(!chat) return "loading..."
+    if(!chat) return <div />;
 
     return (
-        <div>
             <div className="chat-feed">
                 <div className="chat-title-container">
                     <div className="chat-title">
@@ -67,7 +65,6 @@ const ChatFeed = (props) => {
                     <MessageForm {...props} chatId={activeChat} />
                 </div>
             </div>
-        </div>
     );
 }
 
